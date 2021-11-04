@@ -2,6 +2,7 @@
 #include "ECS/ECS.hpp"
 #include "Cookie.hpp"
 
+
 Shop::ShopItem::ShopItem(int p, void (*func)(int), int args)
 {
     int price = p;
@@ -20,8 +21,5 @@ Shop::ShopItem::ShopItem(int p, void (*func)(int), int args)
 
 void Shop::ShopMenu::show_menu()
 {
-    for (auto i : Shop::ShopMenu::shop_items)
-    {
-        i->show();
-    }
+
 }

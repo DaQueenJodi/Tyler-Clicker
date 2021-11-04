@@ -1,9 +1,6 @@
 #pragma once
-#include "nuklear.h"
 #include <vector>
 #include "Cookie.hpp"
-#define NK_IMPLEMENTATION
-
 class Shop
 {
     public:
