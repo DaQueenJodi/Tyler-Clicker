@@ -7,7 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <iostream>
-
+#include "Shop.hpp"
 SDL_Event Game::event;
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -18,7 +18,7 @@ std::vector<ColliderComponent*> Game::colliders;
 Manager manager;
 
 auto &cookie(manager.addEntity());
-
+auto &multiply10(manager.addEntity());
 
 Game::Game()
 {}
@@ -30,7 +30,8 @@ enum groupLabels : std::size_t
 {
     groupClickables,
     groupBackgrounds,
-    groupColliders
+    groupColliders,
+    groupShopItems
 };
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
@@ -69,6 +70,11 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     cookie.addComponent<ColliderComponent>("cookie");
     cookie.addComponent<ClickableComponent>("cookie", this);
     cookie.addGroup(groupClickables);
+
+    multiply10.addComponent<TransformComponent>(0, 400, 3));
+    multiply10.addComponent<SpriteComponent>("res/gfx/dirt.png");
+    cookie.addComponent<ColliderComponent>("button");
+    cookie.addComponent<ClickableComponent>("button", this);
     
   } else {
     std::cout << "failed to run submodules, frick" << std::endl;

@@ -10,6 +10,7 @@ Shop::ShopItem::ShopItem(int p, void (*func)(int), int args)
     int arg = args;
     void (*function)(int) = (*func);
     Shop::ShopMenu::shop_items.push_back(this);
+    draw()
 }
 
  void on_buy(Shop::ShopItem* item)
@@ -21,5 +22,8 @@ Shop::ShopItem::ShopItem(int p, void (*func)(int), int args)
 
 void Shop::ShopMenu::show_menu()
 {
-
+    for (auto i : Shop::ShopMenu::shop_items)
+    {
+        i->draw();
+    }
 }

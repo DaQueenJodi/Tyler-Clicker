@@ -16,7 +16,7 @@ class Shop
         //int purchases;
         //int args;
         void on_buy();
-        void show();
+        void draw();
         friend Shop;
     };
     class ShopMenu
