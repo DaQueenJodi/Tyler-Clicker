@@ -3,9 +3,9 @@
 #include "Game.hpp"
 /*static*/ int Cookie::multiplier = 1;
 /*static*/ int Cookie::score = 0;
-void Cookie::remove_points(int p)
+void Cookie::remove_points(int num)
 {
-    Cookie::score -= p;    
+    Cookie::score -= num;    
 }
 
 int Cookie::get_points()
@@ -13,9 +13,9 @@ int Cookie::get_points()
     return Cookie::score;
 }
 
-void Cookie::add_points(int p)
+void Cookie::add_points(int num)
 {
-    Cookie::score += (p * multiplier);
+    Cookie::score += (num * multiplier);
 }
 
 int Cookie::get_multiplier()
@@ -23,9 +23,9 @@ int Cookie::get_multiplier()
     return Cookie::multiplier;
 }
 
-void Cookie::set_multiplier(int m)
+void Cookie::set_multiplier(int num)
 {
-    Cookie::multiplier = m;
+    Cookie::multiplier = num;
 }
 
 void Cookie::print_score()
@@ -37,7 +37,7 @@ TTF_Font* Font = TTF_OpenFont("res/fonts/LemonMilk.ttf", 30);
 // this is the color in rgb format,
 // maxing out all would give you the color white,
 // and it will be your text's color
-SDL_Color Black = {0, 0, 0};
+SDL_Color Black = {0, 0, 0, 255};
 
 // as TTF_RenderText_Solid could only be used on
 // SDL_Surface then you have to create the surface first
@@ -74,4 +74,6 @@ SDL_RenderCopy(Game::renderer, Message, NULL, &Message_rect);
 // Don't forget to free your surface and texture
 SDL_FreeSurface(surfaceMessage);
 SDL_DestroyTexture(Message);
+TTF_CloseFont(Font);
+Font = NULL;
 }

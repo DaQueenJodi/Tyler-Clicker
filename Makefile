@@ -6,7 +6,7 @@ program_INCLUDE_DIRS	:=  include/
 program_LIBRARY_DIRS	:=
 program_LIBRARIES	:=	SDL2 SDL2_image SDL2main SDL2_ttf
 
-CPPFLAGS	+=	$(foreach includedir, $(program_INCLUDE_DIRS), -I$(includedir))
+CPPFLAGS	+=	$(foreach includedir, $(program_INCLUDE_DIRS), -I$(includedir)) -std=c++20 -Wall -Wextra -g
 LDFLAGS		+=	$(foreach libarydir, $(program_LIBRARY_DIRS), -L$(librarydir))
 LDLLIBS		+=	$(foreach library, $(program_LIBRARIES), -l$(library))
 
@@ -15,7 +15,7 @@ LDLLIBS		+=	$(foreach library, $(program_LIBRARIES), -l$(library))
 all: $(program_NAME)
 
 $(program_NAME): $(program_OBJS)
-	$(LINK.cc) $(program_OBJS) -o $(program_NAME) $(LDLLIBS) -std=c++20 -Wall -g
+	$(LINK.cc) $(program_OBJS) -o $(program_NAME) $(LDLLIBS) 
 
 clean:
 	@- $(RM) $(program_NAME)

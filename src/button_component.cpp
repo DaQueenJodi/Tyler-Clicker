@@ -1,6 +1,6 @@
 #include "ECS/Components.hpp"
 #include "ECS/ECS.hpp"
-
+#include "Colors.hpp"
 void ButtonComponent::click()
 {
     if (Cookie::get_points() >= Price)
@@ -95,25 +95,31 @@ ButtonComponent::ButtonComponent( std::string text, void (*func)(int), int arg, 
     arg_for_func = arg;
     Back_Color = color;
 }
+
+ButtonComponent::~ButtonComponent()
+{
+
+}
+
 void ButtonComponent::init()
 {   
  // (not needed as ClickableComponent does this)  entity->addComponent<ColliderComponent>("button");
     entity->addComponent<ClickableComponent>("button");
     if (!entity->hasComponent<TransformComponent>())
+    {
         if (posx && posy)
             entity->addComponent<TransformComponent>(posx, posy, 3); 
         else
-            std::cout << "no transform component nor coordinates provided in constructor!" << std::endl;
+           std::cout << "no transform component nor coordinates provided in constructor!" << std::endl;
+    }
 }
 
 void ButtonComponent::draw()
 {
 TTF_Font* Font = TTF_OpenFont("res/fonts/LemonMilk.ttf", 30);
 
-SDL_Color Black = {0, 0, 0};
-
 SDL_Surface* surfaceMessage =
-    TTF_RenderText_Solid(Font, Text.c_str(), Black); 
+    TTF_RenderText_Solid(Font, Text.c_str(), Colors::Black); 
 
 SDL_Texture* Message = SDL_CreateTextureFromSurface(Game::renderer, surfaceMessage);
 int w;
@@ -132,10 +138,12 @@ entity->getComponent<TransformComponent>().position.x = Message_rect.x;
 entity->getComponent<TransformComponent>().width = Message_rect.w;
 entity->getComponent<TransformComponent>().height = Message_rect.h;
 
-SDL_SetRenderDrawColor(Game::renderer, 10, 24, 42, 255);
+SDL_SetRenderDrawColor(Game::renderer, Back_Color.r, Back_Color.g, Back_Color.b, 255);
 SDL_RenderFillRect(Game::renderer, &Message_rect);
 SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
 SDL_RenderCopy(Game::renderer, Message, NULL, &Message_rect);
 SDL_FreeSurface(surfaceMessage);
 SDL_DestroyTexture(Message);
+TTF_CloseFont(Font);
+Font = NULL;
 }

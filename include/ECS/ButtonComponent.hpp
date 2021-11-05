@@ -6,7 +6,6 @@
 class ButtonComponent : public Component
 {
     private:
-        TTF_Font* Font = TTF_OpenFont("res/fonts/LemonMilk.ttf", 24);
         int posx;
         int posy;
        // std::string Tag;
@@ -28,4 +27,5 @@ class ButtonComponent : public Component
         ButtonComponent(std::string text, void (*func)(int), int arg, int x, int y, SDL_Color color);
         ButtonComponent(int price, std::string text, void (*func)(int), int arg, SDL_Color color);
         ButtonComponent(std::string text, void (*func)(int), int arg, SDL_Color color);
+        ~ButtonComponent();
 };

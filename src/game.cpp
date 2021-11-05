@@ -10,6 +10,7 @@
 #include "Shop.hpp"
 #include "Mouse.hpp"
 #include "ShopFunctions.hpp"
+#include "Colors.hpp"
 SDL_Event Game::event;
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -61,28 +62,30 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
       is_running = true;
     }
 
+    Cookie::set_multiplier(50);
+
+
     if (TTF_Init() == 0)
     {
       std::cout << "TTF Initialized" << std::endl;
     }
-
-    Cookie::set_multiplier(1);
-    
     multiply1.addComponent<TransformComponent>(400, 400, 3);
-    multiply1.addComponent<ButtonComponent>(100, "Multiplier +1!", ShopFunctions::add_multiplier, 1);
+    multiply1.addComponent<ButtonComponent>(100, "Multiplier +1!", ShopFunctions::add_multiplier, 1, Colors::Pink);
     multiply1.addGroup(groupShopItems);
-    multiply5.addComponent<TransformComponent>(600, 400, 3);
-    multiply5.addComponent<ButtonComponent>(700, "Multiplier +5!", ShopFunctions::add_multiplier, 5);
+
+   multiply5.addComponent<TransformComponent>(600, 400, 3);
+    multiply5.addComponent<ButtonComponent>(700, "Multiplier +5!", ShopFunctions::add_multiplier, 5, Colors::Blue);
     multiply5.addGroup(groupShopItems);
+
     multiply10.addComponent<TransformComponent>(100, 400, 3);
-    multiply10.addComponent<ButtonComponent>(1000, "Multiplier +10!",  ShopFunctions::add_multiplier, 10);
+    multiply10.addComponent<ButtonComponent>(1000, "Multiplier +10!",  ShopFunctions::add_multiplier, 10, Colors::Orange);
     multiply10.addGroup(groupShopItems);
+
     cookie.addComponent<TransformComponent>(100, 300, 2);
     cookie.addComponent<SpriteComponent>("res/gfx/player.png");
     cookie.addComponent<ColliderComponent>("cookie");
     cookie.addComponent<ClickableComponent>("cookie");
     cookie.addGroup(groupClickables);
-
   } else {
     std::cout << "failed to run submodules, frick" << std::endl;
    is_running = false;
