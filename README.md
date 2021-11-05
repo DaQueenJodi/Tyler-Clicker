@@ -5,7 +5,7 @@ TODO:
 
 - [X] Add shop 
 - [X] Add easy way to add buttons/shop items
-- [ ] Add shop menu
+- [ ] Add shop menu (and obviously a shop button). this may not be neccasary, so may not ever come
 - [ ] Add add an Idle component. preferably in an okay way. I have something planned but its likely hot garbage so i'd like to think more about it before adding it.
 
 
