@@ -8,6 +8,8 @@
 #include <SDL2/SDL_image.h>
 #include <iostream>
 #include "Shop.hpp"
+#include "Mouse.hpp"
+#include "ShopFunctions.hpp"
 SDL_Event Game::event;
 
 SDL_Renderer *Game::renderer = nullptr;
@@ -19,7 +21,8 @@ Manager manager;
 
 auto &cookie(manager.addEntity());
 auto &multiply10(manager.addEntity());
-
+auto &multiply5(manager.addEntity());
+auto &multiply1(manager.addEntity());
 Game::Game()
 {}
 Game::~Game()
@@ -31,7 +34,7 @@ enum groupLabels : std::size_t
     groupClickables,
     groupBackgrounds,
     groupColliders,
-    groupShopItems
+    groupShopItems,
 };
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
@@ -64,18 +67,22 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     }
 
     Cookie::set_multiplier(1);
-
+    
+    multiply1.addComponent<TransformComponent>(400, 400, 3);
+    multiply1.addComponent<ButtonComponent>(100, "Multiplier +1!", ShopFunctions::add_multiplier, 1);
+    multiply1.addGroup(groupShopItems);
+    multiply5.addComponent<TransformComponent>(600, 400, 3);
+    multiply5.addComponent<ButtonComponent>(700, "Multiplier +5!", ShopFunctions::add_multiplier, 5);
+    multiply5.addGroup(groupShopItems);
+    multiply10.addComponent<TransformComponent>(100, 400, 3);
+    multiply10.addComponent<ButtonComponent>(1000, "Multiplier +10!",  ShopFunctions::add_multiplier, 10);
+    multiply10.addGroup(groupShopItems);
     cookie.addComponent<TransformComponent>(100, 300, 2);
     cookie.addComponent<SpriteComponent>("res/gfx/player.png");
     cookie.addComponent<ColliderComponent>("cookie");
-    cookie.addComponent<ClickableComponent>("cookie", this);
+    cookie.addComponent<ClickableComponent>("cookie");
     cookie.addGroup(groupClickables);
 
-    multiply10.addComponent<TransformComponent>(0, 400, 3));
-    multiply10.addComponent<SpriteComponent>("res/gfx/dirt.png");
-    cookie.addComponent<ColliderComponent>("button");
-    cookie.addComponent<ClickableComponent>("button", this);
-    
   } else {
     std::cout << "failed to run submodules, frick" << std::endl;
    is_running = false;
@@ -85,6 +92,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
 
 auto& clickables(manager.getGroup(groupClickables));
+auto& shopItems(manager.getGroup(groupShopItems));
 
 
 void Game::handleEvents() {
@@ -102,15 +110,15 @@ void Game::handleEvents() {
           switch (event.button.button)
           {
             case SDL_BUTTON_LEFT:
-              setClickState(ClickState::leftClick); break;
+              Mouse::setClickState(Mouse::ClickState::leftClick); break;
             case SDL_BUTTON_RIGHT:
-              setClickState(ClickState::rightClick); break;
+              Mouse::setClickState(Mouse::ClickState::rightClick); break;
             default:
               break;
           }
         
         }
-          if (getClickState() == ClickState::leftClick)
+          if (Mouse::getClickState() == Mouse::ClickState::leftClick)
           {
          // std::cout << getClickState();
           }
@@ -121,7 +129,7 @@ void Game::update() {
   manager.refresh();
   manager.update();
   //std::cout << getClickState();
-  setClickState(ClickState::noClick);
+  Mouse::setClickState(Mouse::ClickState::noClick);
 }
 
 
@@ -136,7 +144,10 @@ void Game::render()
     c->draw();
   }
 
-  
+  for (auto& b : shopItems)
+  {
+    b->draw();
+  }
 
   SDL_RenderPresent(renderer);
   for (auto& cc : colliders)

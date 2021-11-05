@@ -8,13 +8,6 @@ class ColliderComponent;
 
 class Game {
 public:
-  enum ClickState : int
-  {
-    leftClick = 1,
-    rightClick = 2,
-    noClick = 0
-  };
-
 
 
   Game();
@@ -39,11 +32,13 @@ public:
   static std::vector<ColliderComponent *> colliders;
   static void setCursor(const char* file_path);
 
+//dont ask why, but clickstate stuff used to be in Game
 
-    ClickState getClickState() {return click;}
-    void setClickState(ClickState clickstate) {click = clickstate;}
+
+  //  ClickState getClickState() {return click;}
+  //  void setClickState(ClickState clickstate) {click = clickstate;}
 private:
-  ClickState click = ClickState::noClick; 
+  //ClickState click = ClickState::noClick; 
   bool is_running = false;
   SDL_Window *window;
 };

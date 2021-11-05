@@ -1,7 +1,11 @@
 #include "ECS/ClickableComponent.hpp"
 #include "ECS/ECS.hpp"
+#include "Mouse.hpp"
 
-
+ClickableComponent::ClickableComponent(std::string t)
+{
+    tag = t;
+}
 
 bool ClickableComponent::checkClick(SDL_Rect* rect, int mousex, int mousey)
 {
@@ -27,9 +31,10 @@ bool ClickableComponent::checkClick(SDL_Rect* rect, int mousex, int mousey)
                   {
                       Cookie::add_points(1);
                   }
-                  else if (tag == "shop")
+                  else if (tag == "button")
                   {
-                      // open shop menu
+                      std::cout << "button clicked!" << std::endl;
+                      entity->getComponent<ButtonComponent>().click();
                   }
                 }
                 else
@@ -42,20 +47,18 @@ bool ClickableComponent::checkClick(SDL_Rect* rect, int mousex, int mousey)
 
              void ClickableComponent::init () 
             {
-                entity->addComponent<ColliderComponent>(tag);
+                if (!entity->hasComponent<ColliderComponent>())
+                    entity->addComponent<ColliderComponent>(tag);
             }   
 
 
 	void ClickableComponent::update() 
 	{
       //  std::cout << "welp" << std::endl;
-        if (game->getClickState() == Game::ClickState::leftClick)
+        if (Mouse::getClickState() == Mouse::ClickState::leftClick)
         {
             onClick();
            // std::cout << "click" << std::endl;
         }
        // std::cout << game->getClickState();
-        if (game->getClickState() != Game::ClickState::noClick)
-        {
-        }
     }

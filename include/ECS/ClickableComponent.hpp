@@ -10,7 +10,7 @@
 class ClickableComponent : public Component
 {
 private:
-    Game* game;
+    //Game* game;
     //SDL_Event Game::event;
     Manager manager;
     bool hasReleased = true;
@@ -18,7 +18,7 @@ private:
     bool checkClick(SDL_Rect* rect, int mousex, int mousey);
 public:
     std::string tag;
-	ClickableComponent(std::string t, Game* g) {tag = t; game = g;}
+	ClickableComponent(std::string t);
 
     void onClick();
 

@@ -8,6 +8,11 @@ void Cookie::remove_points(int p)
     Cookie::score -= p;    
 }
 
+int Cookie::get_points()
+{
+    return Cookie::score;
+}
+
 void Cookie::add_points(int p)
 {
     Cookie::score += (p * multiplier);
