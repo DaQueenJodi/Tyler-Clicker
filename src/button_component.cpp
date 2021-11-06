@@ -101,6 +101,28 @@ ButtonComponent::~ButtonComponent()
 
 }
 
+void ButtonComponent::change_location(int x, int y, bool absolute)
+{
+    if (absolute)
+    {
+        entity->getComponent<TransformComponent>().position.y = y;
+        entity->getComponent<TransformComponent>().position.x = x;
+        entity->getComponent<ColliderComponent>().transform = &entity->getComponent<TransformComponent>();
+
+    }
+    else
+    {
+        entity->getComponent<TransformComponent>().position.x  += x;
+        entity->getComponent<TransformComponent>().position.y  += y;
+        entity->getComponent<ColliderComponent>().transform = &entity->getComponent<TransformComponent>();
+
+    }
+    //replace collider component's 'transform' variable to update it
+    entity->getComponent<ColliderComponent>().transform = &entity->getComponent<TransformComponent>(); 
+}
+
+
+
 void ButtonComponent::init()
 {   
  // (not needed as ClickableComponent does this)  entity->addComponent<ColliderComponent>("button");
@@ -133,10 +155,8 @@ Message_rect.y = y;
 Message_rect.w = w; // controls the width of the rect
 Message_rect.h = h; // controls the height of the rect
 
-entity->getComponent<TransformComponent>().position.y = Message_rect.y;
-entity->getComponent<TransformComponent>().position.x = Message_rect.x;
-entity->getComponent<TransformComponent>().width = Message_rect.w;
-entity->getComponent<TransformComponent>().height = Message_rect.h;
+ entity->getComponent<TransformComponent>().width = Message_rect.w;
+ entity->getComponent<TransformComponent>().height = Message_rect.h;
 
 SDL_SetRenderDrawColor(Game::renderer, Back_Color.r, Back_Color.g, Back_Color.b, 255);
 SDL_RenderFillRect(Game::renderer, &Message_rect);

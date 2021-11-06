@@ -8,3 +8,4 @@
 #include "ButtonComponent.hpp"
 #include "IdleComponent.hpp"
 #include "TextBoxComponent.hpp"
+#include "MenuComponent.hpp"

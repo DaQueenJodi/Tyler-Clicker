@@ -19,6 +19,7 @@ class ButtonComponent : public Component
         void draw() override;
         void init() override;
         void click();
+        void change_location(int x, int y, bool absolute = true);
         ButtonComponent(int price, std::string text, void (*func)(int), int arg, int x, int y);
         ButtonComponent(std::string text, void (*func)(int), int arg, int x, int y);
         ButtonComponent(int price, std::string text, void (*func)(int), int arg);

@@ -14,6 +14,9 @@ SDL_Event Game::event;
 
 SDL_Renderer *Game::renderer = nullptr;
 
+int Game::screen_height = 0;
+int Game::screen_width = 0;
+
 
 std::vector<ColliderComponent*> Game::colliders;
 
@@ -37,6 +40,9 @@ auto &idle_5(manager.addEntity());
 auto &score_textbox(manager.addEntity());
 auto &idles_textbox(manager.addEntity());
 
+//menus
+auto &shop_menu(manager.addEntity());
+
 Game::Game()
 {}
 Game::~Game()
@@ -51,10 +57,15 @@ enum groupLabels : std::size_t
     groupShopItems,
     groupIdles,
     groupText,
+    groupMenus,
 };
 
 void Game::init(const char *title, int xpos, int ypos, int width, int height,
                 bool fullscreen) {
+                  //set screen width and height variables for later reference:
+   screen_height = height;
+   screen_width = width;
+  
   int flags = 0;
   if (fullscreen) {
     flags = SDL_WINDOW_FULLSCREEN;
@@ -76,6 +87,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
 
       is_running = true;
     }
+
+
 
 
     if (TTF_Init() == 0)
@@ -130,7 +143,10 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
  
     idles_textbox.addComponent<TextBoxComponent>(100, 0);
     idles_textbox.addGroup(groupText);
- 
+
+    //menus
+    shop_menu.addComponent<MenuComponent>(manager.getGroup(groupShopItems), 0, 100);
+    shop_menu.addGroup(groupMenus);
   } else {
     std::cout << "failed to run submodules, frick" << std::endl;
    is_running = false;
@@ -146,6 +162,8 @@ auto& shopItems(manager.getGroup(groupShopItems));
 auto& idles(manager.getGroup(groupIdles));
 
 auto& text_boxes(manager.getGroup(groupText));
+
+auto& menus(manager.getGroup(groupMenus));
 
 
 void Game::handleEvents() {
@@ -196,6 +214,7 @@ void Game::update() {
 
 
 
+
 void Game::render()
 {
     SDL_RenderClear(renderer);
@@ -206,9 +225,13 @@ void Game::render()
     c->draw();
   }
 
-  for (auto& b : shopItems)
+  // for (auto& b : shopItems)
+  // {
+  // //  b->draw();
+  // }
+  for (auto& menu : menus)
   {
-    b->draw();
+    menu->draw();
   }
 
   for (auto& text : text_boxes)

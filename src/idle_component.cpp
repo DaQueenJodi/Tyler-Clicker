@@ -7,15 +7,15 @@ IdleComponent::IdleComponent(int idle_type,unsigned int points)
 {
     Idle_type = idle_type;
     //looks dumb, but its the easiest way to do it without having to provide a seperate argument which is annoying lol
-    if (idle_type == ShopFunctions::Idle::idle_5_sec)
+    if (idle_type == ShopFunctions::Idle::IDLE_SEC::idle_5)
     {
         Time = 5;
     } 
-    else if (idle_type == ShopFunctions::Idle::idle_10_sec)
+    else if (idle_type == ShopFunctions::Idle::IDLE_SEC::idle_10)
     {
         Time = 10;
     } 
-    else if (idle_type == ShopFunctions::Idle::idle_15_sec)
+    else if (idle_type == ShopFunctions::Idle::IDLE_SEC::idle_15)
     {
         Time = 15;
     } 

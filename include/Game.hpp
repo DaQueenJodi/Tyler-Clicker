@@ -26,19 +26,15 @@ public:
   bool isRunning() { return is_running; }
 
 
-  //static void AddTile(int id, int x, int y);
+  static int screen_width;
+  static int screen_height;
+
+  
   static SDL_Renderer *renderer;
   static SDL_Event event;
   static std::vector<ColliderComponent *> colliders;
   static void setCursor(const char* file_path);
-
-//dont ask why, but clickstate stuff used to be in Game
-
-
-  //  ClickState getClickState() {return click;}
-  //  void setClickState(ClickState clickstate) {click = clickstate;}
 private:
-  //ClickState click = ClickState::noClick; 
   bool is_running = false;
   SDL_Window *window;
 };
