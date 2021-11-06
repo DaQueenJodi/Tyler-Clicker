@@ -4,14 +4,17 @@
 #include <SDL2/SDL_video.h>
 #include <iostream>
 #include "Game.hpp"
-
-Game* game = nullptr;
-
+#include "Cookie.hpp"
 int main(int argc, char *argv[])
 {
-    game = new Game();
+    if (argv[1])
+    {
+        Cookie::set_multiplier(atoi(argv[1]));
+    }
 
-    game->init("welp", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+    Game* game = new Game();
+
+    game->init("welp", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, false);
 
     Game::setCursor("res/gfx/cursor.bmp");
 

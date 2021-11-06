@@ -116,7 +116,7 @@ void ButtonComponent::init()
 
 void ButtonComponent::draw()
 {
-TTF_Font* Font = TTF_OpenFont("res/fonts/LemonMilk.ttf", 30);
+TTF_Font* Font = TTF_OpenFont("res/fonts/LemonMilk.ttf", 15);
 
 SDL_Surface* surfaceMessage =
     TTF_RenderText_Solid(Font, Text.c_str(), Colors::Black); 

@@ -9,14 +9,14 @@ class ButtonComponent : public Component
         int posx;
         int posy;
        // std::string Tag;
-        int Price;
+        unsigned int Price;
         SDL_Rect* Rect;
         std::string Text;
         void (*on_click)(int);
         int arg_for_func;
         SDL_Color Back_Color;
     public:
-        void draw();
+        void draw() override;
         void init() override;
         void click();
         ButtonComponent(int price, std::string text, void (*func)(int), int arg, int x, int y);

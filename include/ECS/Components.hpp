@@ -6,3 +6,5 @@
 #include "ColliderComponent.hpp"
 #include "ClickableComponent.hpp"
 #include "ButtonComponent.hpp"
+#include "IdleComponent.hpp"
+#include "TextBoxComponent.hpp"

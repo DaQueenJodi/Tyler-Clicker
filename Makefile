@@ -1,4 +1,4 @@
-program_NAME	:=	main
+program_NAME	:=	bin/debug/main
 program_CXX_SRCS	:=	$(wildcard src/*.cpp)
 program_CXX_OBJS	:=	${program_CXX_SRCS:.cpp=.o}
 program_OBJS	:=	$(program_CXX_OBJS)
