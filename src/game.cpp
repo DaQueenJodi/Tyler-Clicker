@@ -40,9 +40,6 @@ auto &idle_5(manager.addEntity());
 auto &score_textbox(manager.addEntity());
 auto &idles_textbox(manager.addEntity());
 
-//menus
-auto &shop_menu(manager.addEntity());
-
 Game::Game()
 {}
 Game::~Game()
@@ -112,7 +109,7 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
     add_idle_5.addComponent<ButtonComponent>(3000, "earn 10 points every 5 seconds!", ShopFunctions::add_idle, ShopFunctions::Idle::IDLE_SEC::idle_5, Colors::Red);
     add_idle_5.addGroup(groupShopItems);
 
-    add_idle_10.addComponent<TransformComponent>(300, 800, 3);
+    add_idle_10.addComponent<TransformComponent>(300, 900, 3);
     add_idle_10.addComponent<ButtonComponent>(5000, "earn 40 points every 10 second!", ShopFunctions::add_idle, ShopFunctions::Idle::IDLE_SEC::idle_10, Colors::Green);
     add_idle_10.addGroup(groupShopItems);
 
@@ -143,10 +140,6 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height,
  
     idles_textbox.addComponent<TextBoxComponent>(100, 0);
     idles_textbox.addGroup(groupText);
-
-    //menus
-    shop_menu.addComponent<MenuComponent>(manager.getGroup(groupShopItems), 0, 100);
-    shop_menu.addGroup(groupMenus);
   } else {
     std::cout << "failed to run submodules, frick" << std::endl;
    is_running = false;
@@ -225,10 +218,10 @@ void Game::render()
     c->draw();
   }
 
-  // for (auto& b : shopItems)
-  // {
-  // //  b->draw();
-  // }
+  for (auto& b : shopItems)
+  {
+    b->draw();
+  }
   for (auto& menu : menus)
   {
     menu->draw();
